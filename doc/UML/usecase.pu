@@ -1,0 +1,12 @@
+@startuml usecase
+left to right direction
+actor ユーザー
+rectangle Qing {
+    ユーザー -- (質問)
+    ユーザー -- (回答)
+    ユーザー -- (閲覧)
+    ユーザー -- (ログイン)
+    ユーザー -- (ログアウト)
+    (ログアウト) .> (ログイン): <<include>>
+}
+@enduml usecase
