@@ -23,7 +23,7 @@ class UserController extends Controller
     }
 
     $question = new Question;
-    $question->username = $request->user() ? $request->user()->name() : '';
+    $question->username = $request->user()->name ?? '';
     $question->to = $username;
     $question->body = $request->body;
     $question->save();
