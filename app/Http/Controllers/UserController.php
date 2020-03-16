@@ -9,10 +9,12 @@ use App\Question;
 class UserController extends Controller
 {
   public function index($username) {
-    $questions = Question::where('to', $username)->orderBy('created_at', 'desc')->get();
+    $inboxes = Question::where('to', $username)->orderBy('created_at', 'desc')->get();
+    $outboxes = Question::where('username', $username)->orderBy('created_at', 'desc')->get();
     return view('user', [
       'username' => $username,
-      'questions' => $questions,
+      'inboxes' => $inboxes,
+      'outboxes' => $outboxes,
     ]);
   }
 
@@ -27,6 +29,6 @@ class UserController extends Controller
     $question->to = $username;
     $question->body = $request->body;
     $question->save();
-    return redirect('/');
+    return redirect('/user/'.$username);
   }
 }

@@ -17,10 +17,19 @@
       </section>
       <section>
         <h2>Inbox</h2>
-        @foreach ($questions as $question)
+        @foreach ($inboxes as $inbox)
           <figure>
-            <figcaption>{{$question->created_at}}</figcaption>
-            <blockquote>{{$question->body}}</blockquote>
+            <figcaption>{{$inbox->created_at}}</figcaption>
+            <blockquote>{{$inbox->body}}</blockquote>
+          </figure>
+        @endforeach
+      </section>
+      <section>
+        <h2>Outbox</h2>
+        @foreach ($outboxes as $outbox)
+          <figure>
+            <figcaption>{{$outbox->created_at}}</figcaption>
+            <blockquote>{{$outbox->body}}</blockquote>
           </figure>
         @endforeach
       </section>
