@@ -8,8 +8,8 @@ use App\Question;
 
 class UserController extends Controller
 {
-  public function index($user) {
-    return view('user', ['user' => $user]);
+  public function index($username) {
+    return view('user', ['username' => $username]);
   }
 
   public function question(Request $request, $username) {

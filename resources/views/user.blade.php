@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>{{$user}}</title>
+    <title>{{$username}}</title>
   </head>
   <body>
-    <p>hi {{$user}}</p>
-    <form action="{{url('user/'.$user.'/question')}}" method="POST">
+    <p>hi {{$username}}</p>
+    <form method="POST" action="{{url('user/'.$username.'/question')}}">
       @csrf
       <textarea name="body"></textarea>
       <button type="submit">Question</button>
