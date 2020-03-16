@@ -9,7 +9,11 @@ use App\Question;
 class UserController extends Controller
 {
   public function index($username) {
-    return view('user', ['username' => $username]);
+    $questions = Question::where('to', $username)->orderBy('created_at', 'desc')->get();
+    return view('user', [
+      'username' => $username,
+      'questions' => $questions,
+    ]);
   }
 
   public function question(Request $request, $username) {
