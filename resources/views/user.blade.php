@@ -11,6 +11,16 @@
   </form>
 </section>
 <section>
+  <h2>Answer</h2>
+  @foreach ($answers as $answer)
+    <figure>
+      <figcaption>{{$answer->questions_created_at}}</figcaption>
+      <blockquote>{{$answer->questions_body}}</blockquote>
+      <blockquote>{{$answer->body}}</blockquote>
+    </figure>
+  @endforeach
+</section>
+<section>
   <h2>Inbox</h2>
   @foreach ($inboxes as $inbox)
     <figure>
