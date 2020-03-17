@@ -31,9 +31,9 @@ class HomeController extends Controller
         $inboxes = DB::table('questions')
           ->leftJoin('answers', 'questions.id', '=', 'answers.to')
           ->select('questions.id', 'questions.created_at', 'questions.body'
-            , 'answers.body as answers_body')
-            ->where('questions.to', $username)
-            ->orderBy('questions.created_at', 'desc')
+              , 'answers.body as answers_body')
+          ->where('questions.to', $username)
+          ->orderBy('questions.created_at', 'desc')
           ->get();
         $outboxes = Question::where('username', $username)->orderBy('created_at', 'desc')->get();
         return view('home', [
