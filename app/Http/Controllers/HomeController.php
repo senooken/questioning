@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use App\Question;
 use App\Answer;
@@ -27,7 +28,13 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $username = $request->user()->name;
-        $inboxes = Question::where('to', $username)->orderBy('created_at', 'desc')->get();
+        $inboxes = DB::table('questions')
+          ->leftJoin('answers', 'questions.id', '=', 'answers.to')
+          ->select('questions.id', 'questions.created_at', 'questions.body'
+            , 'answers.body as answers_body')
+            ->where('questions.to', $username)
+            ->orderBy('questions.created_at', 'desc')
+          ->get();
         $outboxes = Question::where('username', $username)->orderBy('created_at', 'desc')->get();
         return view('home', [
             'inboxes' => $inboxes,
