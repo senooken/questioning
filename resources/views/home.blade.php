@@ -25,8 +25,13 @@
   <h2>Inbox</h2>
   @foreach ($inboxes as $inbox)
   <figure>
-  <figcaption>{{$inbox->created_at}}</figcaption>
-  <blockquote>{{$inbox->body}}</blockquote>
+    <figcaption>{{$inbox->created_at}}</figcaption>
+    <blockquote>{{$inbox->body}}</blockquote>
+    <form method="POST" action="{{url('home/answer/'.$inbox->id)}}">
+      @csrf
+      <textarea name="body"></textarea>
+      <p><button type="submit">Answer</button></p>
+    </form>
   </figure>
   @endforeach
 </section>
@@ -34,8 +39,8 @@
   <h2>Outbox</h2>
   @foreach ($outboxes as $outbox)
   <figure>
-  <figcaption>{{$outbox->created_at}}</figcaption>
-  <blockquote>{{$outbox->body}}</blockquote>
+    <figcaption>{{$outbox->created_at}}</figcaption>
+    <blockquote>{{$outbox->body}}</blockquote>
   </figure>
   @endforeach
 </section>

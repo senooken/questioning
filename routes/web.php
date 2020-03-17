@@ -20,6 +20,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::post('/home/answer/{question_id}', 'HomeController@answer');
+
 Route::get('/user/{username}', 'UserController@index');
 
 Route::post('/user/{username}/question', 'UserController@question');
