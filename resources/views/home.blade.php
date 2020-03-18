@@ -22,26 +22,36 @@
 </div>
 
 <section>
-  <h2>Inbox</h2>
-  @foreach ($inboxes as $inbox)
-  <figure>
-    <figcaption>Question ID={{$inbox->id}}, {{$inbox->created_at}}</figcaption>
-    <blockquote>{{$inbox->body}}</blockquote>
-    <form method="POST" action="{{url('home/answer/'.$inbox->id)}}">
-      @csrf
-      <textarea name="body">{{$inbox->answers_body}}</textarea>
-      <p><button class="btn btn-primary" type="submit">Answer</button></p>
-    </form>
-  </figure>
-  @endforeach
+    <h2>Inbox</h2>
+    @foreach ($inboxes as $inbox)
+    <article class="card">
+        <figure class="card-header">
+            <blockquote>
+                <p>{{$inbox->body}}</p>
+            </blockquote>
+            <footer><small>Question ID={{$inbox->id}}, {{$inbox->created_at}}</small></footer>
+        </figure>
+        <article>
+            <form method="POST" action="{{url('home/answer/'.$inbox->id)}}">
+                @csrf
+                <textarea name="body">{{$inbox->answers_body}}</textarea>
+                <p><button class="btn btn-primary" type="submit">Answer</button></p>
+            </form>
+        </article>
+    </article>
+    @endforeach
 </section>
 <section>
-  <h2>Outbox</h2>
-  @foreach ($outboxes as $outbox)
-  <figure>
-    <figcaption>Question ID={{$outbox->id}}, {{$outbox->created_at}}</figcaption>
-    <blockquote>{{$outbox->body}}</blockquote>
-  </figure>
-  @endforeach
+    <h2>Outbox</h2>
+    @foreach ($outboxes as $outbox)
+    <article class="card">
+        <figure class="card-header">
+            <blockquote>
+                <p>{{$outbox->body}}</p>
+            </blockquote>
+            <footer><small>Question ID={{$outbox->id}}, {{$outbox->created_at}}</small></footer>
+        </figure>
+    </article>
+    @endforeach
 </section>
 @endsection

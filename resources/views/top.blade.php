@@ -9,13 +9,22 @@
 </ol>
 
 <section>
-  <h2>Recently Answers</h2>
-  @foreach ($answers as $answer)
-  <figure>
-  <figcaption>Question ID={{$answer->id}}, {{$answer->created_at}}</figcaption>
-  <blockquote>{{$answer->question}}</blockquote>
-  <blockquote>{{$answer->body}}</blockquote>
-  </figure>
-  @endforeach
+    <h2>Recently Answers</h2>
+    @foreach ($answers as $answer)
+    <article class="card">
+        <figure class="card-header">
+            <blockquote>
+                <p>{{$answer->question}}</p>
+            </blockquote>
+            <footer><small>Question ID={{$answer->id}}, {{$answer->created_at}}</small></footer>
+        </figure>
+        <article>
+            <figure>
+                <p>{{$answer->body}}</p>
+                <footer><small>Answer ID=, {{$answer->created_at}}</small></footer>
+            </figure>
+        </article>
+    </article>
+    @endforeach
 </section>
 @endsection
