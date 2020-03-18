@@ -33,9 +33,9 @@ class HomeController extends Controller
           ->select('questions.id', 'questions.created_at', 'questions.body'
               , 'answers.body as answers_body')
           ->where('questions.to', $username)
-          ->orderBy('questions.created_at', 'desc')
+          ->latest('questions.created_at')
           ->get();
-        $outboxes = Question::where('username', $username)->orderBy('created_at', 'desc')->get();
+        $outboxes = Question::where('username', $username)->latest()->get();
         return view('home', [
             'inboxes' => $inboxes,
             'outboxes' => $outboxes,

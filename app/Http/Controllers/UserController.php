@@ -10,8 +10,8 @@ use App\Question;
 class UserController extends Controller
 {
     public function index($username) {
-        $inboxes = Question::where('to', $username)->orderBy('created_at', 'desc')->get();
-        $outboxes = Question::where('username', $username)->orderBy('created_at', 'desc')->get();
+        $inboxes = Question::where('to', $username)->latest()->get();
+        $outboxes = Question::where('username', $username)->latest()->get();
         $answers = DB::table('answers')
             ->leftJoin('questions', 'answers.to', '=', 'questions.id')
             ->select('questions.id as questions_id'
@@ -19,7 +19,7 @@ class UserController extends Controller
                 , 'questions.body as questions_body'
                 , 'answers.body')
             ->where('questions.to', $username)
-            ->orderBy('questions.created_at', 'desc')
+            ->latest('questions.created_at')
             ->get();
         return view('user', [
             'username' => $username,
