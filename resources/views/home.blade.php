@@ -30,7 +30,7 @@
     <form method="POST" action="{{url('home/answer/'.$inbox->id)}}">
       @csrf
       <textarea name="body">{{$inbox->answers_body}}</textarea>
-      <p><button type="submit">Answer</button></p>
+      <p><button class="btn btn-primary" type="submit">Answer</button></p>
     </form>
   </figure>
   @endforeach
