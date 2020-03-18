@@ -12,7 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $answers = DB::table('questions')
+      ->leftJoin('answers', 'questions.id', '=', 'answers.to')
+      ->select('questions.id', 'questions.created_at'
+          , 'questions.body as question'
+          , 'answers.body')
+      ->latest('questions.created_at')
+      ->limit(20)
+      ->get();
+    return view('top', [
+        'answers' => $answers,
+    ]);
 });
 
 // /register, /login, /logout
