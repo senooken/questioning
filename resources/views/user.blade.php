@@ -6,7 +6,7 @@
     <h2>Question form</h2>
     <form method="POST" action="{{url('user/'.$username.'/question')}}">
         @csrf
-        <textarea name="body"></textarea>
+        <textarea name="body" style="width: 100%;"></textarea>
         <p><button class="btn btn-primary" type="submit">Question</button></p>
     </form>
 </section>
