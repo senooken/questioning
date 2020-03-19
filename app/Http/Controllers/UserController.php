@@ -10,14 +10,18 @@ use App\Question;
 class UserController extends Controller
 {
     public function index($username) {
-        $inboxes = Question::where('to', $username)->latest()->get();
-        $outboxes = Question::where('username', $username)->latest()->get();
+        $inboxes = Question::where('to', $username)->latest()
+            ->select('id as q_id', 'created_at as q_created_at', 'body as q_body')->get();
+        $outboxes = Question::where('username', $username)->latest()
+            ->select('id as q_id', 'created_at as q_created_at', 'body as q_body')->get();
         $answers = DB::table('answers')
             ->leftJoin('questions', 'answers.to', '=', 'questions.id')
-            ->select('questions.id as questions_id'
-                , 'questions.created_at as questions_created_at'
-                , 'questions.body as questions_body'
-                , 'answers.body')
+            ->select('questions.id as q_id'
+                , 'questions.created_at as q_created_at'
+                , 'questions.body as q_body'
+                , 'answers.body as a_body'
+                , 'answers.updated_at as a_updated_at'
+            )
             ->where('questions.to', $username)
             ->latest('questions.created_at')
             ->get();

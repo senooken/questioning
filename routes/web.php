@@ -14,9 +14,12 @@
 Route::get('/', function () {
     $answers = DB::table('questions')
       ->leftJoin('answers', 'questions.id', '=', 'answers.to')
-      ->select('questions.id', 'questions.created_at'
-          , 'questions.body as question'
-          , 'answers.body')
+      ->select('questions.id as q_id'
+          , 'questions.created_at as q_created_at'
+          , 'questions.body as q_body'
+          , 'answers.body as a_body'
+          , 'answers.updated_at as a_updated_at'
+      )
       ->latest('questions.created_at')
       ->limit(20)
       ->get();

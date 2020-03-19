@@ -25,34 +25,22 @@
     <section class="col">
         <h2>Inbox</h2>
         @foreach ($inboxes as $inbox)
-        <article class="card">
-            <figure class="card-header">
-                <blockquote>
-                    <p>{{$inbox->body}}</p>
-                </blockquote>
-                <footer><small>Question ID={{$inbox->id}}, {{$inbox->created_at}}</small></footer>
-            </figure>
+            @component('components.question', ['card' => $inbox])
             <article>
-                <form method="POST" action="{{url('home/answer/'.$inbox->id)}}">
+                <form method="POST" action="{{url('home/answer/'.$inbox->q_id)}}">
                     @csrf
-                    <textarea name="body" style="width: 100%;">{{$inbox->answers_body}}</textarea>
+                    <textarea name="body" style="width: 100%;">{{$inbox->a_body}}</textarea>
                     <p><button class="btn btn-primary" type="submit">Answer</button></p>
                 </form>
             </article>
-        </article>
+            @endcomponent
         @endforeach
     </section>
     <section class="col">
         <h2>Outbox</h2>
         @foreach ($outboxes as $outbox)
-        <article class="card">
-            <figure class="card-header">
-                <blockquote>
-                    <p>{{$outbox->body}}</p>
-                </blockquote>
-                <footer><small>Question ID={{$outbox->id}}, {{$outbox->created_at}}</small></footer>
-            </figure>
-        </article>
+            @component('components.question', ['card' => $outbox])
+            @endcomponent
         @endforeach
     </section>
 </div>
