@@ -10,26 +10,30 @@ use App\Question;
 class UserController extends Controller
 {
     public function index($username) {
-        $inboxes = Question::where('to', $username)->latest()
-            ->select('id as q_id', 'created_at as q_created_at', 'body as q_body')->get();
-        $outboxes = Question::where('username', $username)->latest()
-            ->select('id as q_id', 'created_at as q_created_at', 'body as q_body')->get();
-        $answers = DB::table('answers')
-            ->leftJoin('questions', 'answers.to', '=', 'questions.id')
+        $inbox = DB::table('questions')->where('questions.to', $username)
+            ->latest('q_created_at')->latest('a_updated_at')
+            ->leftJoin('answers', 'answers.to', '=', 'questions.id')
             ->select('questions.id as q_id'
                 , 'questions.created_at as q_created_at'
                 , 'questions.body as q_body'
-                , 'answers.body as a_body'
+                , 'answers.id as a_id'
                 , 'answers.updated_at as a_updated_at'
-            )
-            ->where('questions.to', $username)
-            ->latest('questions.created_at')
+                , 'answers.body as a_body')
+            ->get();
+        $outbox = DB::table('questions')->where('questions.username', $username)
+            ->latest('q_created_at')->latest('a_updated_at')
+            ->leftJoin('answers', 'questions.id', '=', 'answers.to')
+            ->select('questions.id as q_id'
+                , 'questions.created_at as q_created_at'
+                , 'questions.body as q_body'
+                , 'answers.id as a_id'
+                , 'answers.updated_at as a_updated_at'
+                , 'answers.body as a_body')
             ->get();
         return view('user', [
             'username' => $username,
-            'inboxes' => $inboxes,
-            'outboxes' => $outboxes,
-            'answers' => $answers,
+            'inbox' => $inbox,
+            'outbox' => $outbox,
         ]);
     }
 

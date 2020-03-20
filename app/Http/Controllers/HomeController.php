@@ -28,21 +28,29 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $username = $request->user()->name;
-        $inboxes = DB::table('questions')
-          ->leftJoin('answers', 'questions.id', '=', 'answers.to')
-          ->select('questions.id as q_id'
-              , 'questions.created_at as q_created_at'
-              , 'questions.body as q_body'
-              , 'answers.body as a_body')
-          ->where('questions.to', $username)
-          ->latest('questions.created_at')
-          ->get();
-        $outboxes = Question::where('username', $username)->latest()
-            ->select('id as q_id', 'created_at as q_created_at', 'body as q_body')
+        $inbox = DB::table('questions')->where('questions.to', $username)
+            ->latest('q_created_at')->latest('a_updated_at')
+            ->leftJoin('answers', 'answers.to', '=', 'questions.id')
+            ->select('questions.id as q_id'
+                , 'questions.created_at as q_created_at'
+                , 'questions.body as q_body'
+                , 'answers.id as a_id'
+                , 'answers.updated_at as a_updated_at'
+                , 'answers.body as a_body')
+            ->get();
+        $outbox = DB::table('questions')->where('questions.username', $username)
+            ->latest('q_created_at')->latest('a_updated_at')
+            ->leftJoin('answers', 'questions.id', '=', 'answers.to')
+            ->select('questions.id as q_id'
+                , 'questions.created_at as q_created_at'
+                , 'questions.body as q_body'
+                , 'answers.id as a_id'
+                , 'answers.updated_at as a_updated_at'
+                , 'answers.body as a_body')
             ->get();
         return view('home', [
-            'inboxes' => $inboxes,
-            'outboxes' => $outboxes,
+            'inbox' => $inbox,
+            'outbox' => $outbox,
         ]);
     }
 

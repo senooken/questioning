@@ -24,24 +24,63 @@
 <div class="row">
     <section class="col">
         <h2>Inbox</h2>
-        @foreach ($inboxes as $inbox)
-            @component('components.question', ['card' => $inbox])
-            <article>
-                <form method="POST" action="{{url('home/answer/'.$inbox->q_id)}}">
-                    @csrf
-                    <textarea name="body" style="width: 100%;">{{$inbox->a_body}}</textarea>
-                    <p><button class="btn btn-primary" type="submit">Answer</button></p>
-                </form>
-            </article>
-            @endcomponent
-        @endforeach
+        <div class="row">
+            <section class="col">
+                <h3>Answered</h3>
+                @foreach ($inbox as $card)
+                    @component('components.question', ['card' => $card])
+                    <article>
+                        <form method="POST" action="{{url('home/answer/'.$card->q_id)}}">
+                            @csrf
+                            <textarea name="body" style="width: 100%;">{{$card->a_body}}</textarea>
+                            <p><button class="btn btn-primary" type="submit">Answer</button></p>
+                            <footer><small>QID={{$card->a_id}}, {{$card->a_updated_at}}</small></footer>
+                        </form>
+                    </article>
+                    @endcomponent
+                @endforeach
+            </section>
+            <section class="col">
+                <h3>Unanswered</h3>
+                @foreach ($inbox as $card)
+                    @if (!$card->a_id)
+                        @component('components.question', ['card' => $card])
+                        <article>
+                            <form method="POST" action="{{url('home/answer/'.$card->q_id)}}">
+                                @csrf
+                                <textarea name="body" style="width: 100%;">{{$card->a_body}}</textarea>
+                                <p><button class="btn btn-primary" type="submit">Answer</button></p>
+                                <footer><small>QID={{$card->a_id}}, {{$card->a_updated_at}}</small></footer>
+                            </form>
+                        </article>
+                        @endcomponent
+                    @endif
+                @endforeach
+            </section>
+        </div>
     </section>
     <section class="col">
         <h2>Outbox</h2>
-        @foreach ($outboxes as $outbox)
-            @component('components.question', ['card' => $outbox])
-            @endcomponent
-        @endforeach
+        <div class="row">
+            <section class="col">
+                <h3>Answered</h3>
+                @foreach ($outbox as $card)
+                    @if ($outbox->a_id)
+                        @component('components.question', ['card' => $card])
+                        @endcomponent
+                    @endif
+                @endforeach
+            </section>
+            <section class="col">
+                <h3>Unanswered</h3>
+                @foreach ($outbox as $card)
+                    @if (!$outbox->a_id)
+                        @component('components.question', ['card' => $card])
+                        @endcomponent
+                    @endif
+                @endforeach
+            </section>
+        </div>
     </section>
 </div>
 @endsection
