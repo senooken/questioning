@@ -21,6 +21,30 @@
     </div>
 </div>
 
+<section>
+    <h2>Profile</h2>
+    <div class="row">
+        <div class="col">
+            <img src="{{url($avater)}}" />
+            <form method="POST" action="{{url('/home/avater')}}" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <label><input type="file" name="avater"/>Avater</label>
+                <button class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="col">
+            <form method="POST" action="" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <textarea style="width: 100%;"></textarea>
+                <button class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+
 <div class="row">
     <section class="col">
         <h2>Inbox</h2>

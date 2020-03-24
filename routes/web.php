@@ -33,7 +33,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/home/answer/{question_id}', 'HomeController@answer');
+Route::put('/home/avater', 'HomeController@avater');
+
+Route::put('/home/answer/{question_id}', 'HomeController@answer');
 
 Route::get('/user/{username}', 'UserController@index');
 

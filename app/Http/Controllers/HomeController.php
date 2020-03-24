@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
+use App\User;
 use App\Question;
 use App\Answer;
 
@@ -51,6 +52,7 @@ class HomeController extends Controller
         return view('home', [
             'inbox' => $inbox,
             'outbox' => $outbox,
+            'avater' => $request->user()->avater,
         ]);
     }
 
@@ -65,6 +67,22 @@ class HomeController extends Controller
         $answer->to = $question_id;
         $answer->body = $request->body;
         $answer->save();
+        return redirect('/home');
+    }
+
+    public function avater(Request $request) {
+        $validator = Validator::make($request->all(), ['avater' => 'required']);
+        if ($validator->fails()) {
+            return redirect('/')->withInput()->withErrors($validator);
+        }
+
+        $file = $request->file('avater');
+        $path = !empty($file) ? $file->store('avater') : '';
+
+        $user = $request->user();
+        $user->avater = $path;
+        $user->save();
+
         return redirect('/home');
     }
 }
