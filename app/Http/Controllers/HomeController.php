@@ -52,7 +52,7 @@ class HomeController extends Controller
         return view('home', [
             'inbox' => $inbox,
             'outbox' => $outbox,
-            'avater' => $request->user()->avater,
+            'avater' => \Storage::disk('public')->url($request->user()->avater),
         ]);
     }
 
@@ -77,7 +77,9 @@ class HomeController extends Controller
         }
 
         $file = $request->file('avater');
-        $path = !empty($file) ? $file->store('avater') : '';
+        if (!empty($file)) {
+            $path = $file->storeAs('avater', $request->user()->id, 'public');
+        }
 
         $user = $request->user();
         $user->avater = $path;

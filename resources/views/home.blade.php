@@ -25,7 +25,7 @@
     <h2>Profile</h2>
     <div class="row">
         <div class="col">
-            <img src="{{url($avater)}}" />
+            <img src="{{$avater}}" />
             <form method="POST" action="{{url('/home/avater')}}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
