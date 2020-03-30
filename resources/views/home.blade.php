@@ -1,32 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<section>
-    <h2>Profile</h2>
+<section class="card">
+    <h2 class="card-header">Profile</h2>
     <div class="row">
         <div class="col">
-            <img src="{{$avatar}}" />
-            <form method="POST" action="{{url('/home/avatar')}}" enctype="multipart/form-data">
+            <img src="{{$avatar}}" style="width: 20em;" />
+            <form method="POST" action="/home/avatar" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <label><input type="file" name="avatar"/>avatar</label>
@@ -34,16 +15,27 @@
             </form>
         </div>
         <div class="col">
-            <form method="POST" action="" enctype="multipart/form-data">
+            <table>
+                <tbody>
+                <tr><td>Username</td><td>{{$user->name}}</td></tr>
+                    <tr><td>Nickname</td><td>Nickname</td></tr>
+                    <tr><td>Web</td><td>Web</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <form method="POST" action="/home/profile" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <textarea style="width: 100%;"></textarea>
+                <textarea name="profile" style="width: 100%; height: 20em;">{{$user->profile}}</textarea>
                 <button class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
 </section>
-
 
 <div class="row">
     <section class="col">

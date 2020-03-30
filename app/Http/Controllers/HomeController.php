@@ -50,6 +50,7 @@ class HomeController extends Controller
                 , 'answers.body as a_body')
             ->get();
         return view('home', [
+            'user' => $request->user(),
             'inbox' => $inbox,
             'outbox' => $outbox,
             'avatar' => \Storage::disk('public')->url($request->user()->avatar),
@@ -84,6 +85,19 @@ class HomeController extends Controller
 
         $user = $request->user();
         $user->avatar = $path;
+        $user->save();
+
+        return redirect('/home');
+    }
+
+    public function profile(Request $request) {
+        $validator = Validator::make($request->all(), ['profile' => 'required']);
+        if ($validator->fails()) {
+            return redirect('/')->withInput()->withErrors($validator);
+        }
+
+        $user = $request->user();
+        $user->profile = $request->profile;
         $user->save();
 
         return redirect('/home');

@@ -35,6 +35,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::put('/home/avatar', 'HomeController@avatar');
 
+Route::put('/home/profile', 'HomeController@profile');
+
 Route::put('/home/answer/{question_id}', 'HomeController@answer');
 
 Route::get('/user/{username}', 'UserController@index');
