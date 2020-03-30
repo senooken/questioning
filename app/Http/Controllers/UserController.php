@@ -31,7 +31,7 @@ class UserController extends Controller
                 , 'answers.body as a_body')
             ->get();
         return view('user', [
-            'username' => $username,
+            'user' => DB::table('users')->where('name', $username)->first(),
             'inbox' => $inbox,
             'outbox' => $outbox,
         ]);

@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>{{$username}}</h1>
+<h1>{{$user->name}}</h1>
+
+@component('components.profile', ['user' => $user])
+@endcomponent
+
 <section>
     <h2>Question form</h2>
-    <form method="POST" action="{{url('user/'.$username.'/question')}}">
+    <form method="POST" action="{{url('user/'.$user->name.'/question')}}">
         @csrf
         <textarea name="body" style="width: 100%;"></textarea>
         <p><button class="btn btn-primary" type="submit">Question</button></p>
@@ -12,38 +16,38 @@
 </section>
 
 <div class="row">
-    <section>
+    <section class="col">
         <h2>Inbox</h2>
         <div class="row">
             <section class="col">
-                <h2>Answered</h2>
+                <h3>Answered</h3>
                 @foreach ($inbox as $card)
-                    @if ($card->a_id)
+                    @isset($card->a_id)
                         @component('components.question', ['card' => $card])
                             @component('components.answer', ['card' => $card])
                             @endcomponent
                         @endcomponent
-                    @endif
+                    @endisset
                 @endforeach
             </section>
             <section class="col">
-                <h2>Unanswered</h2>
+                <h3>Unanswered</h3>
                 @foreach ($inbox as $card)
-                    @if (!$card->a_id)
+                    @empty($card->a_id)
                         @component('components.question', ['card' => $card])
                         @endcomponent
-                    @endif
+                    @endempty
                 @endforeach
             </section>
         </div>
     </section>
-    <section>
+    <section class="col">
         <h2>Outbox</h2>
         <div class="row">
             <section class="col">
                 <h3>Answered</h3>
                 @foreach ($outbox as $card)
-                    @if ($card->a_id)
+                    @isset($card->a_id)
                         @component('components.question', ['card' => $card])
                             @component('components.answer', ['card' => $card])
                             @endcomponent
@@ -54,10 +58,10 @@
             <section class="col">
                 <h3>Unanswered</h3>
                 @foreach ($outbox as $card)
-                    @if (!$card->a_id)
+                    @empty($card->a_id)
                         @component('components.question', ['card' => $card])
                         @endcomponent
-                    @endif
+                    @endempty
                 @endforeach
             </section>
         </div>
