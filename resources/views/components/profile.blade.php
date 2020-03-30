@@ -3,14 +3,14 @@
     <div class="row">
         <div class="col">
             <img src="{{\Storage::disk('public')->url($user->avatar)}}
-            " style="width: 20em;" />
+            " style="width: 18em;" />
 
             @isset($is_home)
             <form method="POST" action="/home/avatar" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <label><input type="file" name="avatar"/>avatar</label>
                 <button class="btn btn-primary">Submit</button>
+                <input type="file" name="avatar"/>
             </form>
             @endif
         </div>
