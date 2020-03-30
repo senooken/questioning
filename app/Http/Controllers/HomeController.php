@@ -78,7 +78,8 @@ class HomeController extends Controller
 
         $file = $request->file('avatar');
         if (!empty($file)) {
-            $path = $file->storeAs('avatar', $request->user()->id, 'public');
+            $path = $file->storeAs('avatar'
+                , $request->user()->id . "." . $file->extension(), 'public');
         }
 
         $user = $request->user();
