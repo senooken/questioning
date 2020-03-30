@@ -52,7 +52,7 @@ class HomeController extends Controller
         return view('home', [
             'inbox' => $inbox,
             'outbox' => $outbox,
-            'avater' => \Storage::disk('public')->url($request->user()->avater),
+            'avatar' => \Storage::disk('public')->url($request->user()->avatar),
         ]);
     }
 
@@ -70,19 +70,19 @@ class HomeController extends Controller
         return redirect('/home');
     }
 
-    public function avater(Request $request) {
-        $validator = Validator::make($request->all(), ['avater' => 'required']);
+    public function avatar(Request $request) {
+        $validator = Validator::make($request->all(), ['avatar' => 'required']);
         if ($validator->fails()) {
             return redirect('/')->withInput()->withErrors($validator);
         }
 
-        $file = $request->file('avater');
+        $file = $request->file('avatar');
         if (!empty($file)) {
-            $path = $file->storeAs('avater', $request->user()->id, 'public');
+            $path = $file->storeAs('avatar', $request->user()->id, 'public');
         }
 
         $user = $request->user();
-        $user->avater = $path;
+        $user->avatar = $path;
         $user->save();
 
         return redirect('/home');

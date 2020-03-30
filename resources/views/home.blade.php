@@ -25,11 +25,11 @@
     <h2>Profile</h2>
     <div class="row">
         <div class="col">
-            <img src="{{$avater}}" />
-            <form method="POST" action="{{url('/home/avater')}}" enctype="multipart/form-data">
+            <img src="{{$avatar}}" />
+            <form method="POST" action="{{url('/home/avatar')}}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <label><input type="file" name="avater"/>Avater</label>
+                <label><input type="file" name="avatar"/>avatar</label>
                 <button class="btn btn-primary">Submit</button>
             </form>
         </div>
