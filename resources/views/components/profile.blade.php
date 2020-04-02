@@ -2,8 +2,10 @@
     <h2 class="card-header">Profile</h2>
     <div class="row">
         <div class="col">
+            @if ($user->avatar)
             <img src="{{\Storage::disk('public')->url($user->avatar)}}
             " style="width: 18em;" />
+            @endif
 
             @isset($is_home)
             <form method="POST" action="/home/avatar" enctype="multipart/form-data">

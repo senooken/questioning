@@ -19,6 +19,11 @@
                                 <p><button class="btn btn-primary" type="submit">Answer</button></p>
                                 <footer><small>QID={{$card->a_id}}, {{$card->a_updated_at}}</small></footer>
                             </form>
+                            @error('body')
+                                <div class="alert alert-danger">
+                                    Answer is required.
+                                </div>
+                            @enderror
                             @endif
                         </article>
                         @endcomponent

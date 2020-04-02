@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Validator;
 use App\Question;
 
 class UserController extends Controller
@@ -22,7 +21,7 @@ class UserController extends Controller
             ->get();
         $outbox = DB::table('questions')->where('questions.username', $username)
             ->latest('q_created_at')->latest('a_updated_at')
-            ->leftJoin('answers', 'questions.id', '=', 'answers.to')
+            ->leftJoin('answers', 'answers.to', '=', 'questions.id')
             ->select('questions.id as q_id'
                 , 'questions.created_at as q_created_at'
                 , 'questions.body as q_body'
@@ -38,10 +37,7 @@ class UserController extends Controller
     }
 
     public function question(Request $request, $username) {
-        $validator = Validator::make($request->all(), ['body' => 'required']);
-        if ($validator->fails()) {
-            return redirect('/')->withInput()->withErrors($validator);
-        }
+        $request->validate(['body' => 'required']);
 
         $question = new Question;
         $question->username = $request->user()->name ?? '';

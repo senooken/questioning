@@ -13,6 +13,11 @@
         <textarea name="body" style="width: 100%;"></textarea>
         <p><button class="btn btn-primary" type="submit">Question</button></p>
     </form>
+    @error('body')
+        <div class="alert alert-danger">
+            Question is required.
+        </div>
+    @enderror
 </section>
 
 @component('components.box', ['inbox' => $inbox, 'outbox' => $outbox])
