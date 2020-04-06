@@ -14,9 +14,11 @@ class UserController extends Controller
             ->leftJoin('answers', 'answers.to', '=', 'questions.id')
             ->select('questions.id as q_id'
                 , 'questions.created_at as q_created_at'
+                , 'questions.username as q_username'
                 , 'questions.body as q_body'
                 , 'answers.id as a_id'
                 , 'answers.updated_at as a_updated_at'
+                , 'answers.username as a_username'
                 , 'answers.body as a_body')
             ->get();
         $outbox = DB::table('questions')->where('questions.username', $username)
@@ -24,9 +26,11 @@ class UserController extends Controller
             ->leftJoin('answers', 'answers.to', '=', 'questions.id')
             ->select('questions.id as q_id'
                 , 'questions.created_at as q_created_at'
+                , 'questions.username as q_username'
                 , 'questions.body as q_body'
                 , 'answers.id as a_id'
                 , 'answers.updated_at as a_updated_at'
+                , 'answers.username as a_username'
                 , 'answers.body as a_body')
             ->get();
         return view('user', [

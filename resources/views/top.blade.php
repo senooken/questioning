@@ -13,10 +13,10 @@
     <div class="row row-cols-2">
         @foreach ($answers as $answer)
         <div class="col">
-        @component('components.question', ['card' => $answer])
-            @component('components.answer', ['card' => $answer])
+            @component('components.question', ['card' => $answer])
+                @component('components.answer', ['card' => $answer])
+                @endcomponent
             @endcomponent
-        @endcomponent
         </div>
         @endforeach
     </div>

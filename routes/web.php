@@ -12,13 +12,15 @@
 */
 
 Route::get('/', function () {
-    $answers = DB::table('questions')
-      ->leftJoin('answers', 'questions.id', '=', 'answers.to')
+    $answers = DB::table('answers')
+      ->leftJoin('questions', 'questions.id', '=', 'answers.to')
       ->select('questions.id as q_id'
           , 'questions.created_at as q_created_at'
+          , 'questions.username as q_username'
           , 'questions.body as q_body'
-          , 'answers.body as a_body'
           , 'answers.updated_at as a_updated_at'
+          , 'answers.username as a_username'
+          , 'answers.body as a_body'
       )
       ->latest('questions.created_at')
       ->limit(20)
