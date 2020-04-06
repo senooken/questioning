@@ -11,7 +11,9 @@
         <blockquote>
             <p>{{$card->q_body}}</p>
         </blockquote>
-        <footer><small>{{$card->q_created_at}}</small></footer>
+        <footer><small>{{$card->q_created_at}},
+            <a href="{{url('/question/' . $card->q_id)}}">permalink</a>
+        </small></footer>
     </figure>
     {{$slot}}
 </article>
