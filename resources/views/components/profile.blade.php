@@ -1,7 +1,7 @@
 <section class="card">
     <h2 class="card-header">Profile</h2>
     <div class="row">
-        <div class="col">
+        <div class="col" style="text-align: center">
             @if ($user->avatar)
             <img src="{{\Storage::disk('public')->url($user->avatar)}}
             " style="width: 18em;" />
@@ -15,15 +15,6 @@
                 <input type="file" name="avatar"/>
             </form>
             @endif
-        </div>
-        <div class="col">
-            <table>
-                <tbody>
-                <tr><td>Username</td><td>{{$user->name}}</td></tr>
-                    <tr><td>Nickname</td><td>Nickname</td></tr>
-                    <tr><td>Web</td><td>Web</td></tr>
-                </tbody>
-            </table>
         </div>
     </div>
 

@@ -11,13 +11,13 @@
                                 @component('components.answer', ['card' => $card])
                                 @endcomponent
                             @else
+                            <header><small>{{$card->a_updated_at}}</small></header>
                             <article>
                                 <form method="POST" action="{{url('home/answer/'.$card->q_id)}}">
                                     @csrf
                                     @method('PUT')
                                     <textarea name="body" style="width: 100%;">{{$card->a_body}}</textarea>
                                     <p><button class="btn btn-primary" type="submit">Answer</button></p>
-                                    <footer><small>{{$card->a_updated_at}}</small></footer>
                                 </form>
                                 @error('body')
                                     <div class="alert alert-danger">
@@ -37,12 +37,12 @@
                         @component('components.question', ['card' => $card])
                         <article>
                             @if (request()->is('*home'))
+                            <header><small>{{$card->a_updated_at}}</small></header>
                             <form method="POST" action="{{url('home/answer/'.$card->q_id)}}">
                                 @csrf
                                 @method('PUT')
                                 <textarea name="body" style="width: 100%;">{{$card->a_body}}</textarea>
                                 <p><button class="btn btn-primary" type="submit">Answer</button></p>
-                                <footer><small>QID={{$card->a_id}}, {{$card->a_updated_at}}</small></footer>
                             </form>
                             @endif
                         </article>
