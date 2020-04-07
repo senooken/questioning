@@ -57,6 +57,8 @@ Route::put('/home/profile', 'HomeController@profile');
 
 Route::put('/home/answer/{question_id}', 'HomeController@answer');
 
+Route::get('/user', 'UserController@index');
+
 Route::get('/user/{name}', 'UserController@name');
 
 Route::post('/user/{name}/question', 'UserController@question');

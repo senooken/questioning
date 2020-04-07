@@ -8,6 +8,11 @@ use App\Question;
 
 class UserController extends Controller
 {
+    public function index() {
+        $users = \App\User::get();
+        return view('user', ['users' => $users]);
+    }
+
     public function name($name) {
         $inbox = DB::table('questions')->where('questions.to', $name)
             ->latest('q_created_at')->latest('a_updated_at')
