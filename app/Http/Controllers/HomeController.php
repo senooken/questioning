@@ -26,28 +26,28 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $username = $request->user()->name;
-        $inbox = DB::table('questions')->where('questions.to', $username)
+        $name = $request->user()->name;
+        $inbox = DB::table('questions')->where('questions.to', $name)
             ->latest('q_created_at')->latest('a_updated_at')
             ->leftJoin('answers', 'answers.to', '=', 'questions.id')
             ->select('questions.id as q_id'
-                , 'questions.username as q_username'
+                , 'questions.name as q_name'
                 , 'questions.created_at as q_created_at'
                 , 'questions.body as q_body'
                 , 'answers.id as a_id'
-                , 'answers.username as a_username'
+                , 'answers.name as a_name'
                 , 'answers.updated_at as a_updated_at'
                 , 'answers.body as a_body')
             ->get();
-        $outbox = DB::table('questions')->where('questions.username', $username)
+        $outbox = DB::table('questions')->where('questions.name', $name)
             ->latest('q_created_at')->latest('a_updated_at')
             ->leftJoin('answers', 'questions.id', '=', 'answers.to')
             ->select('questions.id as q_id'
-                , 'questions.username as q_username'
+                , 'questions.name as q_name'
                 , 'questions.created_at as q_created_at'
                 , 'questions.body as q_body'
                 , 'answers.id as a_id'
-                , 'answers.username as a_username'
+                , 'answers.name as a_name'
                 , 'answers.updated_at as a_updated_at'
                 , 'answers.body as a_body')
             ->get();
@@ -63,7 +63,7 @@ class HomeController extends Controller
         $request->validate(['body' => 'required']);
 
         $answer = new Answer;
-        $answer->username = $request->user()->name ?? '';
+        $answer->name = $request->user()->name ?? '';
         $answer->to = $question_id;
         $answer->body = $request->body;
         $answer->save();

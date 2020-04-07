@@ -1,21 +1,21 @@
 <article class="card">
     <figure class="card-header">
         <header>
-            @isset ($card->q_username)
-            <a href="{{url('/user/'.$card->q_username)}}">
-            <img src="{{\Storage::disk('public')->url(App\User::where('name', $card->q_username)->first()->avatar)}}"
+            @isset ($card->q_name)
+            <a href="{{url('/user/'.$card->q_name)}}">
+            <img src="{{\Storage::disk('public')->url(App\User::where('name', $card->q_name)->first()->avatar)}}"
                  style="height: 3em;"
             />
-            {{$card->q_username}}
+            {{$card->q_name}}
             </a>
+            , <small>{{$card->q_created_at}}
+            , <a href="{{url('/question/' . $card->q_id)}}">permalink</a>
+            </small>
             @endisset
         </header>
         <blockquote>
             <p>{{$card->q_body}}</p>
         </blockquote>
-        <footer><small>{{$card->q_created_at}},
-            <a href="{{url('/question/' . $card->q_id)}}">permalink</a>
-        </small></footer>
     </figure>
     {{$slot}}
 </article>
