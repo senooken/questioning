@@ -16,10 +16,10 @@ Route::get('/', function () {
       ->leftJoin('questions', 'questions.id', '=', 'answers.to')
       ->select('questions.id as q_id'
           , 'questions.created_at as q_created_at'
-          , 'questions.name as q_username'
+          , 'questions.name as q_name'
           , 'questions.body as q_body'
           , 'answers.updated_at as a_updated_at'
-          , 'answers.name as a_username'
+          , 'answers.name as a_name'
           , 'answers.body as a_body'
       )
       ->latest('questions.created_at')
@@ -35,10 +35,10 @@ Route::get('/question/{question_id}', function ($question_id) {
       ->leftJoin('answers', 'questions.id', '=', 'answers.to')
       ->select('questions.id as q_id'
           , 'questions.created_at as q_created_at'
-          , 'questions.name as q_username'
+          , 'questions.name as q_name'
           , 'questions.body as q_body'
           , 'answers.updated_at as a_updated_at'
-          , 'answers.name as a_username'
+          , 'answers.name as a_name'
           , 'answers.body as a_body'
       )
       ->first();
