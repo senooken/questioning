@@ -16,6 +16,7 @@ Questioning is question and answer web application developed by Laravel 6 + PHP 
 
 ## Usage
 1. Rregister your account in `/register`.
+2. Upload avatar and fill profile in `/home` after login.
 2. Find user in `/user`, then ask question or view answer.
 3. Answer your question in `/home/`.
 
@@ -33,6 +34,7 @@ composer install
 npm install && npm run dev
 php artisan key:generate
 touch database/database.sqlite
+chmod -R a+rwx database
 cp .env.example .env
 php artisan migrate
 ```
