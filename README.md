@@ -3,7 +3,7 @@
 
 Questioning is question and answer web application developed by Laravel 6 + PHP 7.
 
-[Demo](https://questioning.cf): ID=contact@example.com, PW=anonymous
+[Demo](https://questioning.cf): Username=Anonymous, ID=contact@example.com, PW=anonymous
 
 ## Screenshot
 ### Top (`/`)
