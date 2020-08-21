@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Questioning</h1>
+<h1>{{env('APP_NAME')}}</h1>
 <p>This is Question & Answer service.</p>
 <ol>
     <li><a href="{{url('home')}}">home</a></li>
