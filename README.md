@@ -37,6 +37,7 @@ touch database/database.sqlite
 chmod -R a+rwx database
 cp .env.example .env
 php artisan migrate
+php artisan storage:link
 ```
 
 In .env file, Fill following item.
